@@ -12,45 +12,80 @@ class Object
 
     Instance()
     {
-        this.cardEgg = document.createElement("div");
-        this.cardEgg.classList.add("card");
+        this.card = document.createElement("div");
+        this.card.classList.add("card");
+        this.card.style.marginLeft = this.margin + "%";
 
-        this.cardImgEgg = document.createElement("div");
-        this.cardImgEgg.classList.add("img");
-        this.cardEgg.appendChild(this.cardImgEgg);
+        this.cardImg = document.createElement("div");
+        this.cardImg.classList.add("img");
+        this.cardImg.style.backgroundImage = "url(" + this.img + ")";
+        this.card.appendChild(this.cardImg);
 
-        this.cardNameEgg = document.createElement("span");
-        this.cardNameEgg.classList.add("name");
-        this.cardEgg.appendChild(this.cardNameEgg);
+        this.cardName = document.createElement("span");
+        this.cardName.classList.add("name");
+        this.cardName.innerHTML = this.name;
+        this.card.appendChild(this.cardName);
 
-        this.cardPriceEgg = document.createElement("span");
-        this.cardPriceEgg.classList.add("price");
-        this.cardEgg.appendChild(this.cardPriceEgg);
+        this.cardPrice = document.createElement("span");
+        this.cardPrice.classList.add("price");
+        this.cardPrice.innerHTML = this.sign + this.price;
+        this.card.appendChild(this.cardPrice);
 
-        this.cardBuyEgg = document.createElement("button");
-        this.cardBuyEgg.classList.add("buy");
-        this.cardEgg.appendChild(this.cardBuyEgg);
+        this.cardBuy = document.createElement("button");
+        this.cardBuy.classList.add("buy");
+        this.cardBuy.innerHTML = this.button;
+        this.card.appendChild(this.cardBuy);
 
-        document.body.appendChild(this.cardEgg);
+        document.body.appendChild(this.card);
+    }
 
-        /*this.cardEgg.classList.remove("noCard");
-        this.cardEgg.classList.add("card");
-        this.cardEgg.style.marginLeft = this.margin + "%";
+    AddToCart()
+    {
+        this.cart = document.createElement("div");
+        this.cart.classList.add("cart");
+        document.body.appendChild(this.cart);
 
-        this.cardImgEgg.classList.remove("noImg");
-        this.cardImgEgg.classList.add("img");
+        this.product = document.createElement("div");
+        this.product.classList.add("product");
+        this.cart.appendChild(this.product);
 
-        this.cardNameEgg.classList.remove("noName");
-        this.cardNameEgg.classList.add("name");
-        this.cardNameEgg.innerHTML = this.name;
+        this.productImg = document.createElement("div");
+        this.productImg.classList.add("img");
+        this.productImg.style.backgroundImage = "url(" + this.img + ")";
+        this.product.appendChild(this.productImg);
 
-        this.cardPriceEgg.classList.remove("noPrice");
-        this.cardPriceEgg.classList.add("price");
-        this.cardPriceEgg.innerHTML = this.sign + this.price;
+        this.productDetails = document.createElement("div");
+        this.productDetails.classList.add("productDetails");
+        this.product.appendChild(this.productDetails);
 
-        this.cardBuyEgg.classList.remove("noBuy");
-        this.cardBuyEgg.classList.add("buy");
-        this.cardBuyEgg.innerHTML = this.button;*/
+        this.productName = document.createElement("div");
+        this.productName.classList.add("name");
+        this.productName.innerHTML = this.name;
+        this.productDetails.appendChild(this.productName);
+
+        this.productPrice = document.createElement("div");
+        this.productPrice.classList.add("price");
+        this.productPrice.innerHTML = this.sign + this.price;
+        this.productDetails.appendChild(this.productPrice);
+
+        this.productCounter = document.createElement("div");
+        this.productCounter.classList.add("counter");
+        this.productDetails.appendChild(this.productCounter);
+
+        this.productCounterMinus = document.createElement("button");
+        this.productCounterMinus.classList.add("minus");
+        this.productCounterMinus.innerHTML = "-";
+        this.productCounter.appendChild(this.productCounterMinus);
+
+        this.productCounterQuantity = document.createElement("span");
+        this.productCounterQuantity.classList.add("quantity");
+        this.productCounterQuantity.innerHTML = 1;
+        this.productCounter.appendChild(this.productCounterQuantity);
+
+        this.productCounterPlus = document.createElement("button");
+        this.productCounterPlus.classList.add("plus");
+        this.productCounterPlus.innerHTML = "+";
+        this.productCounter.appendChild(this.productCounterPlus);
     }
 }
 
