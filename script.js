@@ -8,6 +8,8 @@ class Object
         this.sign = objSign;
         this.button = objButton;
         this.margin = objMargin;
+
+        this.cardBuy;
     }
 
     Instance()
@@ -40,6 +42,57 @@ class Object
     }
 
     AddToCart()
+    {
+        this.cardBuy.addEventListener("click", () => {
+            this.cart = document.querySelector(".noCart");
+            this.cart.classList.remove("noCart");
+            this.cart.classList.add("cart");
+    
+            this.product = document.createElement("div");
+            this.product.classList.add("product");
+            this.cart.appendChild(this.product);
+    
+            this.productImg = document.createElement("div");
+            this.productImg.classList.add("img");
+            this.productImg.style.backgroundImage = "url(" + this.img + ")";
+            this.product.appendChild(this.productImg);
+    
+            this.productDetails = document.createElement("div");
+            this.productDetails.classList.add("productDetails");
+            this.product.appendChild(this.productDetails);
+    
+            this.productName = document.createElement("div");
+            this.productName.classList.add("name");
+            this.productName.innerHTML = this.name;
+            this.productDetails.appendChild(this.productName);
+    
+            this.productPrice = document.createElement("div");
+            this.productPrice.classList.add("price");
+            this.productPrice.innerHTML = this.sign + this.price;
+            this.productDetails.appendChild(this.productPrice);
+    
+            this.productCounter = document.createElement("div");
+            this.productCounter.classList.add("counter");
+            this.productDetails.appendChild(this.productCounter);
+    
+            this.productCounterMinus = document.createElement("button");
+            this.productCounterMinus.classList.add("minus");
+            this.productCounterMinus.innerHTML = "-";
+            this.productCounter.appendChild(this.productCounterMinus);
+    
+            this.productCounterQuantity = document.createElement("span");
+            this.productCounterQuantity.classList.add("quantity");
+            this.productCounterQuantity.innerHTML = 1;
+            this.productCounter.appendChild(this.productCounterQuantity);
+    
+            this.productCounterPlus = document.createElement("button");
+            this.productCounterPlus.classList.add("plus");
+            this.productCounterPlus.innerHTML = "+";
+            this.productCounter.appendChild(this.productCounterPlus);
+        });
+    }
+
+    /*AddToCart()
     {
         this.cart = document.createElement("div");
         this.cart.classList.add("cart");
@@ -86,11 +139,14 @@ class Object
         this.productCounterPlus.classList.add("plus");
         this.productCounterPlus.innerHTML = "+";
         this.productCounter.appendChild(this.productCounterPlus);
-    }
+    }*/
 }
 
 let Egg = new Object("img", "Ovo de páscoa", 80, "R$", "Comprar", 0);
 Egg.Instance();
+Egg.AddToCart();
+//Egg.cardBuy.addEventListener("click", Egg.AddToCart());
 
 let Iphone = new Object("img", "Iphone 16", 8500, "R$", "Comprar", 2);
 Iphone.Instance();
+Iphone.AddToCart();
