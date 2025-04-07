@@ -60,11 +60,12 @@
     width: 20%;
     height: 80%;
     padding-inline: 1%;
-    padding-block: 1%;
+    padding-block: 0.5%;
     display: flex;
     flex-flow: column nowrap;
-    justify-self: flex-end;
     background-color: green;
+    position: absolute;
+    left: 77%;
 }
 
 .product
@@ -76,6 +77,7 @@
     align-items: center;
     padding-block: 5%;
     padding-inline: 5%;
+    margin-block: 2%;
     background-color: blue;
 }
 
@@ -84,6 +86,12 @@
     width: 50%;
     height: 100%;
     background-color: white;
+}
+
+.product .cancel
+{
+    margin-bottom: 40%;
+    margin-right: -1%;
 }
 
 .product .productDetails
@@ -115,8 +123,8 @@
     flex-flow: row nowrap;
     align-self: flex-end;
     justify-content: space-between;
-    margin-top: 35%;
-    background-color: red;
+    margin-top: 58%;
+    margin-right: -29%;
 }
 
 .product .productDetails .counter .quantity

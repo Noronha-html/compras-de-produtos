@@ -1,3 +1,5 @@
+let itemsQuantity = 0;
+
 class Object
 {
     constructor(objImg, objName, objPrice, objSign, objButton, objMargin, objMarginTop)
@@ -10,14 +12,9 @@ class Object
         this.margin = objMargin;
         this.marginTop = objMarginTop;
 
-        this.productCounterMinus;
-        this.productCounterPlus;
         this.cardBuy;
 
         this.productQuantity = 1;
-
-        this.take = false;
-        this.add = false;
 
         this.alreadyOnCart = false;
     }
@@ -67,6 +64,7 @@ class Object
                 this.product = document.createElement("div");
                 this.product.classList.add("product");
                 this.cart.appendChild(this.product);
+                itemsQuantity ++;
         
                 this.productImg = document.createElement("div");
                 this.productImg.classList.add("img");
@@ -76,6 +74,11 @@ class Object
                 this.productDetails = document.createElement("div");
                 this.productDetails.classList.add("productDetails");
                 this.product.appendChild(this.productDetails);
+
+                this.productCancel = document.createElement("button");
+                this.productCancel.classList.add("cancel");
+                this.productCancel.innerHTML = "X";
+                this.product.appendChild(this.productCancel);
         
                 this.productName = document.createElement("div");
                 this.productName.classList.add("name");
@@ -107,51 +110,59 @@ class Object
                 this.productCounter.appendChild(this.productCounterPlus);
 
                 this.alreadyOnCart = true;
+
+                this.TakeOfCounter();
+                this.AddToCounter();
+                this.CancelItem();
             }
-            else if(this.alreadyOnCart || this.add)
+            else if(this.alreadyOnCart)
             {
-                this.productCounterQuantity.innerHTML = this.productQuantity ++;
-            }
-            else if(this.take)
-            {
-                this.productCounterQuantity.innerHTML = this.productQuantity --;
+                this.productQuantity ++;
+                this.productCounterQuantity.innerHTML = this.productQuantity;
             }
         });
-
-        /*this.productCounterMinus.addEventListener("click", () => {
-            this.productCounterQuantity.innerHTML = this.productQuantity --;
-        });
-
-        this.productCounterPlus.addEventListener("click", () => {
-            this.productCounterQuantity.innerHTML = this.productQuantity ++;
-        });*/
     }
 
     TakeOfCounter()
     {
-        this.productCounterMinus.addEventListener("click", () => {
-            this.take = true;
+        this.productCounterMinus?.addEventListener("click", () => {
+            if(this.productQuantity > 1)
+            {
+                this.productQuantity --;
+                this.productCounterQuantity.innerHTML = this.productQuantity;
+            }
         });
     }
 
     AddToCounter()
     {
-        this.productCounterPlus.addEventListener("click", () => {
-            this.add = true;
+        this.productCounterPlus?.addEventListener("click", () => {
+            this.productQuantity ++;
+            this.productCounterQuantity.innerHTML = this.productQuantity;
         }); 
+    }
+
+    CancelItem()
+    {
+        this.productCancel?.addEventListener("click", () => {
+            this.product.remove();
+            itemsQuantity --;
+            this.alreadyOnCart = false;
+            this.productQuantity = 1;
+
+            if(itemsQuantity === 0)
+            {
+                this.cart.classList.remove("cart");
+                this.cart.classList.add("noCart");
+            }
+        });
     }
 }
 
 let Egg = new Object("img", "Ovo de páscoa", 80, "R$", "Comprar", 0, 0);
 Egg.Instance();
 Egg.AddToCart();
-Egg.TakeOfCounter();
-Egg.AddToCounter();
-//Egg.AddToCounter();
 
 let Iphone = new Object("img", "Iphone 16", 8500, "R$", "Comprar", 2, 20);
 Iphone.Instance();
 Iphone.AddToCart();
-Iphone.TakeOfCounter();
-Iphone.AddToCounter();
-//Iphone.AddToCounter();
