@@ -1,6 +1,6 @@
 class Object
 {
-    constructor(objImg, objName, objPrice, objSign, objButton, objMargin)
+    constructor(objImg, objName, objPrice, objSign, objButton, objMargin, objMarginTop)
     {
         this.img = objImg;
         this.name = objName;
@@ -8,8 +8,18 @@ class Object
         this.sign = objSign;
         this.button = objButton;
         this.margin = objMargin;
+        this.marginTop = objMarginTop;
 
+        this.productCounterMinus;
+        this.productCounterPlus;
         this.cardBuy;
+
+        this.productQuantity = 1;
+
+        this.take = false;
+        this.add = false;
+
+        this.alreadyOnCart = false;
     }
 
     Instance()
@@ -44,109 +54,104 @@ class Object
     AddToCart()
     {
         this.cardBuy.addEventListener("click", () => {
-            this.cart = document.querySelector(".noCart");
-            this.cart.classList.remove("noCart");
-            this.cart.classList.add("cart");
-    
-            this.product = document.createElement("div");
-            this.product.classList.add("product");
-            this.cart.appendChild(this.product);
-    
-            this.productImg = document.createElement("div");
-            this.productImg.classList.add("img");
-            this.productImg.style.backgroundImage = "url(" + this.img + ")";
-            this.product.appendChild(this.productImg);
-    
-            this.productDetails = document.createElement("div");
-            this.productDetails.classList.add("productDetails");
-            this.product.appendChild(this.productDetails);
-    
-            this.productName = document.createElement("div");
-            this.productName.classList.add("name");
-            this.productName.innerHTML = this.name;
-            this.productDetails.appendChild(this.productName);
-    
-            this.productPrice = document.createElement("div");
-            this.productPrice.classList.add("price");
-            this.productPrice.innerHTML = this.sign + this.price;
-            this.productDetails.appendChild(this.productPrice);
-    
-            this.productCounter = document.createElement("div");
-            this.productCounter.classList.add("counter");
-            this.productDetails.appendChild(this.productCounter);
-    
-            this.productCounterMinus = document.createElement("button");
-            this.productCounterMinus.classList.add("minus");
-            this.productCounterMinus.innerHTML = "-";
-            this.productCounter.appendChild(this.productCounterMinus);
-    
-            this.productCounterQuantity = document.createElement("span");
-            this.productCounterQuantity.classList.add("quantity");
-            this.productCounterQuantity.innerHTML = 1;
-            this.productCounter.appendChild(this.productCounterQuantity);
-    
-            this.productCounterPlus = document.createElement("button");
-            this.productCounterPlus.classList.add("plus");
-            this.productCounterPlus.innerHTML = "+";
-            this.productCounter.appendChild(this.productCounterPlus);
+            if(!this.alreadyOnCart)
+            {
+                this.cart = document.getElementById("noCart");
+
+                if(this.cart.classList.contains("noCart"))
+                {
+                    this.cart.classList.remove("noCart");
+                    this.cart.classList.add("cart");
+                }
+        
+                this.product = document.createElement("div");
+                this.product.classList.add("product");
+                this.cart.appendChild(this.product);
+        
+                this.productImg = document.createElement("div");
+                this.productImg.classList.add("img");
+                this.productImg.style.backgroundImage = "url(" + this.img + ")";
+                this.product.appendChild(this.productImg);
+        
+                this.productDetails = document.createElement("div");
+                this.productDetails.classList.add("productDetails");
+                this.product.appendChild(this.productDetails);
+        
+                this.productName = document.createElement("div");
+                this.productName.classList.add("name");
+                this.productName.innerHTML = this.name;
+                this.productDetails.appendChild(this.productName);
+        
+                this.productPrice = document.createElement("div");
+                this.productPrice.classList.add("price");
+                this.productPrice.innerHTML = this.sign + this.price;
+                this.productDetails.appendChild(this.productPrice);
+        
+                this.productCounter = document.createElement("div");
+                this.productCounter.classList.add("counter");
+                this.productDetails.appendChild(this.productCounter);
+        
+                this.productCounterMinus = document.createElement("button");
+                this.productCounterMinus.classList.add("minus");
+                this.productCounterMinus.innerHTML = "-";
+                this.productCounter.appendChild(this.productCounterMinus);
+        
+                this.productCounterQuantity = document.createElement("span");
+                this.productCounterQuantity.classList.add("quantity");
+                this.productCounterQuantity.innerHTML = this.productQuantity;
+                this.productCounter.appendChild(this.productCounterQuantity);
+        
+                this.productCounterPlus = document.createElement("button");
+                this.productCounterPlus.classList.add("plus");
+                this.productCounterPlus.innerHTML = "+";
+                this.productCounter.appendChild(this.productCounterPlus);
+
+                this.alreadyOnCart = true;
+            }
+            else if(this.alreadyOnCart || this.add)
+            {
+                this.productCounterQuantity.innerHTML = this.productQuantity ++;
+            }
+            else if(this.take)
+            {
+                this.productCounterQuantity.innerHTML = this.productQuantity --;
+            }
+        });
+
+        /*this.productCounterMinus.addEventListener("click", () => {
+            this.productCounterQuantity.innerHTML = this.productQuantity --;
+        });
+
+        this.productCounterPlus.addEventListener("click", () => {
+            this.productCounterQuantity.innerHTML = this.productQuantity ++;
+        });*/
+    }
+
+    TakeOfCounter()
+    {
+        this.productCounterMinus.addEventListener("click", () => {
+            this.take = true;
         });
     }
 
-    /*AddToCart()
+    AddToCounter()
     {
-        this.cart = document.createElement("div");
-        this.cart.classList.add("cart");
-        document.body.appendChild(this.cart);
-
-        this.product = document.createElement("div");
-        this.product.classList.add("product");
-        this.cart.appendChild(this.product);
-
-        this.productImg = document.createElement("div");
-        this.productImg.classList.add("img");
-        this.productImg.style.backgroundImage = "url(" + this.img + ")";
-        this.product.appendChild(this.productImg);
-
-        this.productDetails = document.createElement("div");
-        this.productDetails.classList.add("productDetails");
-        this.product.appendChild(this.productDetails);
-
-        this.productName = document.createElement("div");
-        this.productName.classList.add("name");
-        this.productName.innerHTML = this.name;
-        this.productDetails.appendChild(this.productName);
-
-        this.productPrice = document.createElement("div");
-        this.productPrice.classList.add("price");
-        this.productPrice.innerHTML = this.sign + this.price;
-        this.productDetails.appendChild(this.productPrice);
-
-        this.productCounter = document.createElement("div");
-        this.productCounter.classList.add("counter");
-        this.productDetails.appendChild(this.productCounter);
-
-        this.productCounterMinus = document.createElement("button");
-        this.productCounterMinus.classList.add("minus");
-        this.productCounterMinus.innerHTML = "-";
-        this.productCounter.appendChild(this.productCounterMinus);
-
-        this.productCounterQuantity = document.createElement("span");
-        this.productCounterQuantity.classList.add("quantity");
-        this.productCounterQuantity.innerHTML = 1;
-        this.productCounter.appendChild(this.productCounterQuantity);
-
-        this.productCounterPlus = document.createElement("button");
-        this.productCounterPlus.classList.add("plus");
-        this.productCounterPlus.innerHTML = "+";
-        this.productCounter.appendChild(this.productCounterPlus);
-    }*/
+        this.productCounterPlus.addEventListener("click", () => {
+            this.add = true;
+        }); 
+    }
 }
 
-let Egg = new Object("img", "Ovo de páscoa", 80, "R$", "Comprar", 0);
+let Egg = new Object("img", "Ovo de páscoa", 80, "R$", "Comprar", 0, 0);
 Egg.Instance();
 Egg.AddToCart();
-//Egg.cardBuy.addEventListener("click", Egg.AddToCart());
+Egg.TakeOfCounter();
+Egg.AddToCounter();
+//Egg.AddToCounter();
 
-let Iphone = new Object("img", "Iphone 16", 8500, "R$", "Comprar", 2);
+let Iphone = new Object("img", "Iphone 16", 8500, "R$", "Comprar", 2, 20);
 Iphone.Instance();
 Iphone.AddToCart();
+Iphone.TakeOfCounter();
+Iphone.AddToCounter();
+//Iphone.AddToCounter();
