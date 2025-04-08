@@ -12,6 +12,8 @@ class Object
         this.margin = objMargin;
         this.marginTop = objMarginTop;
 
+        this.initialValue = objPrice;
+
         this.cardBuy;
 
         this.productQuantity = 1;
@@ -59,6 +61,14 @@ class Object
                 {
                     this.cart.classList.remove("noCart");
                     this.cart.classList.add("cart");
+                }
+
+                this.cartTotal = document.getElementById("noTotal");
+
+                if(this.cartTotal.classList.contains("noTotal"))
+                {
+                    this.cartTotal.classList.remove("noTotal");
+                    this.cartTotal.classList.add("total");
                 }
         
                 this.product = document.createElement("div");
@@ -115,10 +125,13 @@ class Object
                 this.AddToCounter();
                 this.CancelItem();
             }
-            else if(this.alreadyOnCart)
+            else
             {
                 this.productQuantity ++;
                 this.productCounterQuantity.innerHTML = this.productQuantity;
+
+                this.price += this.initialValue;
+                this.productPrice.innerHTML = this.sign + this.price;
             }
         });
     }
@@ -130,6 +143,9 @@ class Object
             {
                 this.productQuantity --;
                 this.productCounterQuantity.innerHTML = this.productQuantity;
+
+                this.price -= this.initialValue;
+                this.productPrice.innerHTML = this.sign + this.price;
             }
         });
     }
@@ -139,6 +155,9 @@ class Object
         this.productCounterPlus?.addEventListener("click", () => {
             this.productQuantity ++;
             this.productCounterQuantity.innerHTML = this.productQuantity;
+
+            this.price += this.initialValue;
+            this.productPrice.innerHTML = this.sign + this.price;
         }); 
     }
 
@@ -149,11 +168,15 @@ class Object
             itemsQuantity --;
             this.alreadyOnCart = false;
             this.productQuantity = 1;
+            this.price = this.initialValue;
 
             if(itemsQuantity === 0)
             {
                 this.cart.classList.remove("cart");
                 this.cart.classList.add("noCart");
+
+                this.cartTotal.classList.remove("total");
+                this.cartTotal.classList.add("noTotal");
             }
         });
     }
@@ -166,3 +189,7 @@ Egg.AddToCart();
 let Iphone = new Object("img", "Iphone 16", 8500, "R$", "Comprar", 2, 20);
 Iphone.Instance();
 Iphone.AddToCart();
+
+let Dice = new Object("img", "D20", 6, "R$", "Comprar", 2, 40);
+Dice.Instance();
+Dice.AddToCart();
